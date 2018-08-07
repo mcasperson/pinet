@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-import dot3k.lcd as lcd
+import dothat.lcd as lcd
+import dothat.backlight as backlight
+import json
+import urllib2
 
-
-print("""
-This example shows a basic "Hello World" on the LCD.
-You should see "Hello World" displayed on your LCD!
-Press CTRL+C to exit.
-""")
-
-
-# Clear the LCD and display Hello World
+backlight.rgb(255, 255, 255)
 lcd.clear()
-lcd.write("Hello World")
+contents = urllib2.urlopen("http://192.168.1.215/admin/api.php?summaryRaw").read()
+parsed_json = json.loads(contents)
+lcd.write(parsed_json["ads_blocked_today"])
