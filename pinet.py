@@ -5,14 +5,14 @@ import dothat.backlight as backlight
 import json
 import urllib2
 import speedtest
-from time import gmtime, strftime
+from time import localtime, strftime
 
 backlight.rgb(255, 255, 255)
 lcd.clear()
 
 contents = urllib2.urlopen("http://192.168.1.215/admin/api.php?summaryRaw").read()
 parsed_json = json.loads(contents)
-lcd.write("Updated " + strftime("%H:%M:%S", gmtime()))
+lcd.write("Updated " + strftime("%H:%M:%S", localtime()))
 lcd.set_cursor_position(0, 1)
 lcd.write("Blocked " + str(parsed_json["ads_blocked_today"])[:8])
 lcd.set_cursor_position(0, 2)
